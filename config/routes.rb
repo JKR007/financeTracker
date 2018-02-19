@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   get 'my_portfolio', to: "users#my_portfolio"
   #through the 'search_stocks' view #search by 'stocks' controller
   get 'search_stocks', to: 'stocks#search'
+  resources :user_stocks, only: [:create, :destroy]
 
 end
