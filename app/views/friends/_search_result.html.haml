@@ -1,0 +1,29 @@
+-if params[:action] == 'search'
+  %div.results-block
+    =bootstrap_flash
+
+-if @users && @users.size > 0
+  %table.table.table-striped.search-results_table.col-md_12
+    %thead
+      %tr
+        %th.page-header{colspan: "3"}
+          %h2 Search results
+      %tr
+        %th Name
+        %th Email
+        %th Profile
+    %tbody
+    -@users.each do |user|
+      %tr
+        %td
+          =user.full_name
+        %td
+          =user.email
+        %td
+          =link_to "View Profile", user_path(user), class: "btn btn-xs btn-success"
+          -if current_user.not_friends_with?(user.id)
+            =link_to "Add friend", add_friend_path(user: current_user, friend: user),
+            class: "btn btn-xs btn-success", method: :post
+          -else
+            %span.label.label-primary
+              You are already friends
